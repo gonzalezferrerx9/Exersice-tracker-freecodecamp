@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXERCISE TRACKER</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Registro de Ejercicios</h1>
+        </header>
+        
+        <main class="forms-container">
+            <section class="form-card">
+                <h2>Crear un Nuevo Usuario</h2>
+                <form action="/api/users" method="POST">
+                    <input type="text" name="username" placeholder="nombre de usuario" required>
+                    <button type="submit">Enviar</button>
+                </form>
+            </section>
+            
+            <section class="form-card">
+                <h2>Añadir Ejercicios</h2>
+                <form id="exercise-form">
+                    <input type="text" name="_id" placeholder="ID de usuario" required>
+                    <input type="text" name="description" placeholder="descripción*" required>
+                    <input type="number" name="duration" placeholder="duración* (min.)" required>
+                    <input type="text" name="date" placeholder="fecha (aaaa-mm-dd)">
+                    <button type="submit">Enviar</button>
+                </form>
+            </section>
+        </main>
+        
+        <footer class="usage-info">
+            <p><strong>Obtener registro de ejercicios:</strong></p>
+            <code>GET /api/users/:_id/logs?[from][&to][&limit]</code>
+        </footer>
+    </div>
+
+    <script>
+  
+      const exerciseForm = document.getElementById('exercise-form');
+      exerciseForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const userId = this.elements._id.value;
+        this.action = `/api/users/${userId}/exercises`;
+        this.method = 'POST';
+        this.submit();
+      });
+    </script>
+
+</body>
+</html>
